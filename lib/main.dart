@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:monobank_app/monobank_icons.dart';
-import 'monobank_icons.dart';
+import 'Elements/navigation_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,49 +28,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final appBarInfo = [
-    {"title": "Карта", "icon": MonobankIcons.credit_card},
-    {"title": "Кредити", "icon": MonobankIcons.credits},
-    {"title": "Накопичення", "icon": MonobankIcons.calendar_check},
-    {"title": "Кешбек", "icon": MonobankIcons.gift_1},
-    {"title": "Ще", "icon": MonobankIcons.th_large},
-  ];
-
-  Widget _screenNaming(title, icon) {
-    return SizedBox(
-      width: 75,
-      child: IconButton(
-        onPressed: () {},
-        icon: Column(
-          children: [
-            Icon(icon, size: 23, color: const Color(0xFF979797)),
-            Text(
-              title,
-              style: const TextStyle(fontSize: 9, color: Color(0xFF979797)),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        color: const Color(0xFFFEFEFE),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: appBarInfo
-              .map(
-                (e) => SizedBox(
-                  child: _screenNaming(e["title"], e["icon"]),
-                  height: 50,
-                ),
-              )
-              .toList(),
-        ),
-      ),
+      bottomNavigationBar: NavigationBar(),
       body: Center(),
     );
   }
