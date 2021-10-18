@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../Elements/screens_background.dart';
 void main() {
   runApp(const SavingsPage());
 }
@@ -14,7 +14,7 @@ class SavingsPage extends StatefulWidget {
 class _SavingsPageState extends State<SavingsPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return ScreeNavigationBarnBackground(
       
     );
   }
