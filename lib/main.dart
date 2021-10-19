@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Elements/navigation_bar.dart';
-import 'Savings/savings.dart';
+import 'Cashback/cashback.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: NavigationBar(),
-        body: const SavingsPage(),
+        body: const CashbackPage(),
       ),
     );
   }
