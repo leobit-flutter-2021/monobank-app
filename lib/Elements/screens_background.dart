@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(ScreeNavigationBarnBackground());
+class ScreeNavigationBarBackground extends StatelessWidget {
+  var child1;
 
-class ScreeNavigationBarnBackground extends StatelessWidget {
-  ScreeNavigationBarnBackground({Key? key}) : super(key: key);
+  var child2;
+
+
+  ScreeNavigationBarBackground({Key? key, this.child1, this.child2}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,7 @@ class ScreeNavigationBarnBackground extends StatelessWidget {
                               stops: [0.0, 1.0],
                               tileMode: TileMode.clamp),
                         ),
-                        child: const Text("dads"),
+                        child: child1,
                       ),
                     ),
                     Expanded(
@@ -54,7 +58,7 @@ class ScreeNavigationBarnBackground extends StatelessWidget {
           child: Container(
             width: screenWidth,
             color: const Color(0xFFf4f4f4),
-            child: const Text("adsa"),
+            child: child2,
           ),
         )
       ],
