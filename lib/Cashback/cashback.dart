@@ -82,7 +82,7 @@ class _CashbackPageState extends State<CashbackPage> {
       },
     ];
     return Container(
-      height: MediaQuery.of(context).size.height / 4,
+      height: MediaQuery.of(context).size.height / 4 + 11,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -162,7 +162,7 @@ class _CashbackPageState extends State<CashbackPage> {
           ),
           Container(
               padding: const EdgeInsets.only(left: 8, right: 8),
-              height: MediaQuery.of(context).size.height / 3.2,
+              height: MediaQuery.of(context).size.height / 3.2 - 33,
               width: MediaQuery.of(context).size.width,
               child: ListView(
                   children: partnersCashbackItems
@@ -233,9 +233,10 @@ class _CashbackPageState extends State<CashbackPage> {
   Widget _upperBar() {
     return Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 25),
+            // margin: const EdgeInsets.only(top: 10),
             child: const Text(
               'Баланс кешбеку',
               style: TextStyle(
@@ -246,28 +247,28 @@ class _CashbackPageState extends State<CashbackPage> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(top: 20),
-            child: const Text(
-              'Накопичено 13.37 ₴',
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
+              // margin: const EdgeInsets.only(top: 20),
+              child: Column(
+            children: const [
+              Text(
+                'Накопичено 13.37 ₴',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
               ),
-            ),
-          ),
-          Container(
-            width: 350,
-            child: const Text(
-              'Залишилося 67.12 ₴, щоб вивести гроші на свій рахунок',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: Colors.white,
+              Text(
+                'Залишилося 67.12 ₴, щоб вивести гроші на свій рахунок',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
+                ),
               ),
-            ),
-          ),
+            ],
+          ))
         ],
       ),
     );

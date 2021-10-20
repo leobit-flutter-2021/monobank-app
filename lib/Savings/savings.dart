@@ -25,7 +25,8 @@ class _SavingsPageState extends State<SavingsPage> {
 
   Widget _upperText() {
     return Container(
-      margin: const EdgeInsets.only(bottom: 40),
+      // height: MediaQuery.of(context).size.,
+      margin: const EdgeInsets.only(bottom: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
