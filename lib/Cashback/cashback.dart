@@ -17,42 +17,47 @@ class _CashbackPageState extends State<CashbackPage> {
     return Container(
         padding: const EdgeInsets.only(left: 5, top: 10, right: 5, bottom: 5),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               child: Image.asset(e["image"]),
               width: 40,
               height: 40,
             ),
-            Column(
-              children: [
-                Container(
-                    child: Text(
-                  e["main_text"],
+            Container(
+                width: MediaQuery.of(context).size.width - 130,
+                margin: const EdgeInsets.only(left: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                        child: Text(
+                          e["main_text"],
+                          style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                          ),
+                        )),
+                    Text(
+                      e["desc_text"],
+                      style: const TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                )),
+            Container(
+                child: Text(
+                  e["amount"],
                   style: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
                     color: Colors.black,
                   ),
                 )),
-                Text(
-                  e["desc_text"],
-                  style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-            Container(
-                child: Text(
-              e["amount"],
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-                color: Colors.black,
-              ),
-            )),
           ],
         ));
   }
@@ -90,6 +95,7 @@ class _CashbackPageState extends State<CashbackPage> {
                 )),
             Container(
                 padding: const EdgeInsets.only(left: 8, right: 8),
+                width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height / 3 - 91,
                 child: ListView(
                     children: bankContainerItems
@@ -98,6 +104,7 @@ class _CashbackPageState extends State<CashbackPage> {
           ],
         ));
   }
+
 
   Widget _partnersCashback() {
     final partnersCashbackItems = [
@@ -151,6 +158,7 @@ class _CashbackPageState extends State<CashbackPage> {
             Container(
                 padding: const EdgeInsets.only(left: 8, right: 8),
                 height: MediaQuery.of(context).size.height / 3 - 81,
+                width: MediaQuery.of(context).size.width,
                 child: ListView(
                     children: partnersCashbackItems
                         .map((e) => (_partnersCashbackItem(e)))
@@ -161,35 +169,40 @@ class _CashbackPageState extends State<CashbackPage> {
 
   Widget _partnersCashbackItem(e) {
     return Container(
+        width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.only(left: 5, top: 10, right: 5, bottom: 10),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               child: Image.asset(e["image"]),
               width: 40,
               height: 40,
             ),
-            Column(
-              children: [
-                Container(
-                    child: Text(
-                  e["main_text"],
-                  style: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
+            Container(
+                width: MediaQuery.of(context).size.width - 100,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                        child: Text(
+                      e["main_text"],
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    )),
+                    Text(
+                      e["desc_text"],
+                      style: const TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
                 )),
-                Text(
-                  e["desc_text"],
-                  style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
             Container(
               child: Image.asset('lib/assets/images/ok.png'),
               width: 20,
