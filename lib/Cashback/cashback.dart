@@ -15,51 +15,55 @@ class CashbackPage extends StatefulWidget {
 class _CashbackPageState extends State<CashbackPage> {
   Widget _bankCashbackItem(e) {
     return Container(
-        padding: const EdgeInsets.only(left: 5, top: 10, right: 5, bottom: 5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              child: Image.asset(e["image"]),
-              width: 40,
-              height: 40,
-            ),
-            Container(
-                width: MediaQuery.of(context).size.width - 130,
-                margin: const EdgeInsets.only(left: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                        child: Text(
-                          e["main_text"],
-                          style: const TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          ),
-                        )),
-                    Text(
-                      e["desc_text"],
-                      style: const TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey,
-                      ),
+      padding: const EdgeInsets.only(left: 5, top: 10, right: 5, bottom: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            child: Image.asset(e["image"]),
+            width: 40,
+            height: 40,
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width - 130,
+            margin: const EdgeInsets.only(left: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  child: Text(
+                    e["main_text"],
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
                     ),
-                  ],
-                )),
-            Container(
-                child: Text(
-                  e["amount"],
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
                   ),
-                )),
-          ],
-        ));
+                ),
+                Text(
+                  e["desc_text"],
+                  style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            child: Text(
+              e["amount"],
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _bankCashback() {
@@ -78,33 +82,33 @@ class _CashbackPageState extends State<CashbackPage> {
       },
     ];
     return Container(
-        height: 190,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                alignment: Alignment.centerLeft,
-                margin: const EdgeInsets.only(left: 13, bottom: 13),
-                child: const Text(
-                  "Кешбек від банку",
-                  style: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black,
-                  ),
-                )),
-            Container(
-                padding: const EdgeInsets.only(left: 8, right: 8),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 3 - 91,
-                child: ListView(
-                    children: bankContainerItems
-                        .map((e) => (_bankCashbackItem(e)))
-                        .toList()))
-          ],
-        ));
+      height: MediaQuery.of(context).size.height / 4,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+              alignment: Alignment.centerLeft,
+              margin: const EdgeInsets.only(left: 13, bottom: 13),
+              child: const Text(
+                "Кешбек від банку",
+                style: TextStyle(
+                  fontSize: 19,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black,
+                ),
+              )),
+          Container(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 5.3,
+              child: ListView(
+                  children: bankContainerItems
+                      .map((e) => (_bankCashbackItem(e)))
+                      .toList()))
+        ],
+      ),
+    );
   }
-
 
   Widget _partnersCashback() {
     final partnersCashbackItems = [
@@ -125,96 +129,104 @@ class _CashbackPageState extends State<CashbackPage> {
       },
     ];
     return Container(
-        height: 200,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                    alignment: Alignment.centerLeft,
-                    margin: const EdgeInsets.only(left: 13),
-                    child: const Text(
-                      "Кешбек від партнерів",
-                      style: TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
-                      ),
-                    )),
-                Container(
-                    alignment: Alignment.bottomRight,
-                    margin: const EdgeInsets.only(left: 120),
-                    child: const Text(
-                      "Див. усі",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.red,
-                      ),
-                    )),
-              ],
-            ),
-            Container(
-                padding: const EdgeInsets.only(left: 8, right: 8),
-                height: MediaQuery.of(context).size.height / 3 - 81,
-                width: MediaQuery.of(context).size.width,
-                child: ListView(
-                    children: partnersCashbackItems
-                        .map((e) => (_partnersCashbackItem(e)))
-                        .toList()))
-          ],
-        ));
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                  alignment: Alignment.centerLeft,
+                  margin: const EdgeInsets.only(left: 13),
+                  child: const Text(
+                    "Кешбек від партнерів",
+                    style: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                    ),
+                  )),
+              Container(
+                alignment: Alignment.bottomRight,
+                margin: const EdgeInsets.only(right: 10),
+                child: const Text(
+                  "Див. усі",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              height: MediaQuery.of(context).size.height / 3.2,
+              width: MediaQuery.of(context).size.width,
+              child: ListView(
+                  children: partnersCashbackItems
+                      .map((e) => (_partnersCashbackItem(e)))
+                      .toList()))
+        ],
+      ),
+    );
   }
 
   Widget _partnersCashbackItem(e) {
     return Container(
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.only(left: 5, top: 10, right: 5, bottom: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              child: Image.asset(e["image"]),
-              width: 40,
-              height: 40,
-            ),
-            Container(
-                width: MediaQuery.of(context).size.width - 100,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                        child: Text(
-                      e["main_text"],
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                    )),
-                    Text(
-                      e["desc_text"],
-                      style: const TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey,
-                      ),
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.only(left: 5, top: 10, right: 5, bottom: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            child: Image.asset(e["image"]),
+            width: 40,
+            height: 40,
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width - 100,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  child: Text(
+                    e["main_text"],
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
                     ),
-                  ],
-                )),
-            Container(
-              child: Image.asset('lib/assets/images/ok.png'),
-              width: 20,
-              height: 20,
+                  ),
+                ),
+                Text(
+                  e["desc_text"],
+                  style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ));
+          ),
+          Container(
+            child: Image.asset('lib/assets/images/ok.png'),
+            width: 20,
+            height: 20,
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _cashback() {
-    return Column(
-      children: [_bankCashback(), _partnersCashback()],
+    return Container(
+      height: MediaQuery.of(context).size.height / 3,
+      child: Column(
+        children: [_bankCashback(), _partnersCashback()],
+      ),
     );
   }
 
@@ -223,34 +235,39 @@ class _CashbackPageState extends State<CashbackPage> {
       child: Column(
         children: [
           Container(
-              margin: const EdgeInsets.only(top: 25),
-              child: const Text('Баланс кешбеку',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white,
-                  ))),
+            margin: const EdgeInsets.only(top: 25),
+            child: const Text(
+              'Баланс кешбеку',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+              ),
+            ),
+          ),
           Container(
-              margin: const EdgeInsets.only(top: 20),
-              child: const Text(
-                'Накопичено 13.37 ₴',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              )),
+            margin: const EdgeInsets.only(top: 20),
+            child: const Text(
+              'Накопичено 13.37 ₴',
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+            ),
+          ),
           Container(
-              width: 350,
-              child: const Text(
-                'Залишилося 67.12 ₴, щоб вивести гроші на свій рахунок',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white,
-                ),
-              )),
+            width: 350,
+            child: const Text(
+              'Залишилося 67.12 ₴, щоб вивести гроші на свій рахунок',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: Colors.white,
+              ),
+            ),
+          ),
         ],
       ),
     );
