@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'HomePage/home_page.dart';
+import 'Elements/navigation_bar.dart';
+import 'Cashback/cashback.dart';
+import 'Savings/savings.dart';
 
 void main() {
   runApp(const MyApp());
