@@ -258,9 +258,15 @@ class _CashbackPageState extends State<CashbackPage> {
 
   @override
   Widget build(BuildContext context) {
+    final cashbackList = [
+      {'icon': Icon(Icons.favorite_outlined), 'text': 'Передавати на благо'},
+      {'icon': Icon(Icons.archive), 'text': 'Архів'},
+      {'icon': Icon(Icons.save_alt), 'text': 'Вивести'}
+    ];
     return ScreeNavigationBarBackground(
       child1: _upperBar(),
       child2: _cashback(),
+      buttonsInfo: cashbackList,
     );
   }
 }
