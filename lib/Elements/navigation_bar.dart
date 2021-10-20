@@ -19,15 +19,23 @@ class NavigationBar extends StatelessWidget {
       child: IconButton(
         onPressed: () {},
         icon: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, size: 23, color: const Color(0xFF979797)),
-            Text(
-              title,
-              style: const TextStyle(fontSize: 9, color: Color(0xFF979797)),
-            ),
+            _buttonText(title),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buttonText(String title){
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: Text(
+              title,
+              style: const TextStyle(fontSize: 9, color: Color(0xFF979797)),
+            ),
     );
   }
 
@@ -41,7 +49,7 @@ class NavigationBar extends StatelessWidget {
               .map(
                 (e) => SizedBox(
                   child: _screenNaming(e["title"], e["icon"]),
-                  height: 50,
+                  height: 60,
                 ),
               )
               .toList(),

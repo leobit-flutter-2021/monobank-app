@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'HomePage/home_page.dart';
 import 'Elements/navigation_bar.dart';
 import 'Cashback/cashback.dart';
 import 'Savings/savings.dart';
@@ -18,25 +19,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        bottomNavigationBar: NavigationBar(),
-        body: const CashbackPage(),
-      ),
     );
   }
 }
