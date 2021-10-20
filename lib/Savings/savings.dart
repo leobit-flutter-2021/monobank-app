@@ -167,7 +167,7 @@ class _SavingsPageState extends State<SavingsPage> {
 
       return Container(
         padding: const EdgeInsets.only(left: 8, right: 8),
-        height: MediaQuery.of(context).size.height / 3 * 2 - 93.4,
+        height: MediaQuery.of(context).size.height / 3 * 2 - 100,
         child: ListView(
             children: jarsInfo
                 .map((e) => (Container(
