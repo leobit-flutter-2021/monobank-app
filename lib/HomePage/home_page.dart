@@ -11,24 +11,9 @@ Color whiteColor = Colors.orange;
 Color purpleColor = Colors.deepPurple;
 final oCcy = new NumberFormat("#,##0.00", "en_US");
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
 
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: NavigationBar(),
-      body: _HomeScroller(context),
-    );
-  }
-}
 
-Widget _HomeScroller(context) {
+Widget HomePage(context) {
   List<Widget> _transactions = [
     _dateTimeMain("23 Thermidor 2023"),
     _transactionCard(Transaction("222", -214, "Pornhub account",
