@@ -9,6 +9,9 @@ class MakeTransaction {
 
 class MakeBankSaving {
   double cash;
+  int amount;
+  int firstTransacrion;
+  String jarName;
 
-  MakeBankSaving(this.cash);
+  MakeBankSaving(this.cash, this.amount, this.firstTransacrion, this.jarName);
 }
