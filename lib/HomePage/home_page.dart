@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String dropdownValue = 'other';
+  String dropdownValue = 'taxi';
   int transactionAmount = 0;
 
   Widget _moneyBar() {

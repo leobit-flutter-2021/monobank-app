@@ -7,7 +7,7 @@ class CashState {
       10000,
       0,
       0,
-      100,
+      0,
       [
         {"total_amount": 9000, "current_amount": 5000, "name": "На гараж"},
         {"total_amount": 9000, "current_amount": 200, "name": "На гараж"},
