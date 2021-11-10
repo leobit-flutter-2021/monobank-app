@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:monobank_app/states.dart';
 import '../Elements/screens_background.dart';
 import '../Elements/consts.dart';
 
@@ -14,59 +16,55 @@ class SavingsPage extends StatefulWidget {
 }
 
 class _SavingsPageState extends State<SavingsPage> {
-  final jarsInfo = [
-    {"total_amount": 9000, "current_amount": 6000, "name": "На гараж"},
-    {"total_amount": 9000, "current_amount": 6000, "name": "На гараж"},
-    {"total_amount": 9000, "current_amount": 6000, "name": "На гараж"},
-    {"total_amount": 9000, "current_amount": 6000, "name": "На гараж"},
-    {"total_amount": 9000, "current_amount": 6000, "name": "На гараж"},
-    {"total_amount": 9000, "current_amount": 6000, "name": "На гараж"},
-  ];
-
   Widget _upperText() {
-    return Container(
-      // height: MediaQuery.of(context).size.,
-      margin: const EdgeInsets.only(bottom: 20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Stack(
-            alignment: Alignment.center,
+    return StoreConnector<CashState, dynamic>(
+      converter: (store) => store.state,
+      builder: (context, cashInfo) {
+        return Container(
+          // height: MediaQuery.of(context).size.,
+          margin: const EdgeInsets.only(bottom: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    child: const Text(
+                      "Накопичення в гривнях",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 15),
+                    alignment: Alignment.bottomRight,
+                    child: const Icon(
+                      Icons.info_outlined,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
               Container(
-                alignment: Alignment.bottomCenter,
-                child: const Text(
-                  "Накопичення в гривнях",
+                alignment: Alignment.center,
+                child: Text(
+                  (cashInfo.savingsTotalAmount.toString() + " \$"),
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 30,
                     fontWeight: FontWeight.w500,
                     color: Colors.white,
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(right: 15),
-                alignment: Alignment.bottomRight,
-                child: const Icon(
-                  Icons.info_outlined,
-                  color: Colors.white,
-                ),
-              ),
             ],
           ),
-          Container(
-            alignment: Alignment.center,
-            child: const Text(
-              "9200.00 \$",
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -74,7 +72,7 @@ class _SavingsPageState extends State<SavingsPage> {
     Widget _sectionTitle() {
       return Container(
         height: 50,
-        margin: const EdgeInsets.only(left: 10,bottom: 10),
+        margin: const EdgeInsets.only(left: 10, bottom: 10),
         alignment: Alignment.centerLeft,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -88,16 +86,19 @@ class _SavingsPageState extends State<SavingsPage> {
                 fontFamily: 'Roboto',
               ),
             ),
-            Text("У гривні 9200 HRN",style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),),
+            Text(
+              "У гривні 9200 HRN",
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.grey,
+              ),
+            ),
           ],
         ),
       );
     }
 
-    Widget _sectionInfo() {
+    Widget _sectionInfo(cashInfo) {
       Widget _bankaElement(jarInfo) {
         return Row(
           children: [
@@ -149,7 +150,9 @@ class _SavingsPageState extends State<SavingsPage> {
                     width: MediaQuery.of(context).size.width - 70,
                     height: 10,
                     child: LinearProgressIndicator(
-                      value: 0.7,
+                      // value: 0.7,
+                      value:
+                          jarInfo["current_amount"] / jarInfo["total_amount"],
                     ),
                   ),
                   Text(
@@ -170,22 +173,26 @@ class _SavingsPageState extends State<SavingsPage> {
         padding: const EdgeInsets.only(left: 8, right: 8),
         height: MediaQuery.of(context).size.height / 3 * 2 - 100,
         child: ListView(
-            children: jarsInfo
-                .map((e) => (Container(
+            children: cashInfo.jars
+                .map<Widget>((e) => (Container(
                     margin: const EdgeInsets.only(bottom: 15),
                     child: _bankaElement(e))))
                 .toList()),
       );
     }
 
-    return Container(
-      child: Column(
-        children: [
-          _sectionTitle(),
-          _sectionInfo(),
-        ],
-      ),
-    );
+    return StoreConnector<CashState, dynamic>(
+        converter: (store) => store.state,
+        builder: (context, cashInfo) {
+          return Container(
+            child: Column(
+              children: [
+                _sectionTitle(),
+                _sectionInfo(cashInfo),
+              ],
+            ),
+          );
+        });
   }
 
   @override
