@@ -20,7 +20,7 @@ class NavigationBar extends StatelessWidget {
   ];
 
   Widget _screenNaming(title, icon, context) {
-    final List elements = [HomePage(context1), SavingsPage(), CashbackPage()];
+    final List elements = [HomePage(), SavingsPage(), CashbackPage()];
     return SizedBox(
       width: 75,
       child: IconButton(

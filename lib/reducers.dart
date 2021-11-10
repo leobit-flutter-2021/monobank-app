@@ -4,14 +4,14 @@ import 'states.dart';
 import 'actions.dart';
 
 CashState cashReducer(CashState previousState, dynamic action) {
-  double newCash = action.cash;
   if (action is MakeTransaction) {
-    double diff = previousState.cash - newCash;
+    double diff = action.cash;
+    double newCash = previousState.cash - action.cash;
     double productCashbackPercents = 0.03;
     double taxiCashbackPercents = 0.03;
     double elseCashbackPercents = 0.03;
     List<Transaction> newTransactions = previousState.transactions;
-    newTransactions.add(Transaction("Now", newCash.toInt(),
+    newTransactions.add(Transaction("Now", diff.toInt(),
         action.typeOfTransaction, action.typeOfTransaction));
 
     if (action.typeOfTransaction == 'product') {
