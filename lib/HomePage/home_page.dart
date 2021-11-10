@@ -1,49 +1,20 @@
-import 'dart:ffi';
-// import 'dart:js';
-// import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:monobank_app/monobank_icons.dart';
 import '../Elements/navigation_bar.dart';
 import 'package:intl/intl.dart';
+import '../models.dart';
+
+import 'package:flutter_redux/flutter_redux.dart';
+import '../Elements/screens_background.dart';
+import '../states.dart';
 
 Color whiteColor = Colors.orange;
 Color purpleColor = Colors.deepPurple;
 final oCcy = new NumberFormat("#,##0.00", "en_US");
 
-
-
 Widget HomePage(context) {
   List<Widget> _transactions = [
-    _dateTimeMain("23 Thermidor 2023"),
-    _transactionCard(Transaction("222", -214, "Pornhub account",
-        "Max Leszczynski", MonobankIcons.credit_card)),
-    _transactionCard(Transaction("222", -214, "Pornhub account",
-        "Max Leszczynski", MonobankIcons.credit_card)),
-    _transactionCard(Transaction("222", -214, "Pornhub account",
-        "Max Leszczynski", MonobankIcons.credit_card)),
-    _transactionCard(Transaction("222", -214, "Pornhub account",
-        "Max Leszczynski", MonobankIcons.credit_card)),
-    _transactionCard(Transaction("222", -214, "Pornhub account",
-        "Max Leszczynski", MonobankIcons.credit_card)),
-    _transactionCard(Transaction("222", -214, "Pornhub account",
-        "Max Leszczynski", MonobankIcons.credit_card)),
-    _dateTime("22 Thermidor 2023"),
-    _transactionCard(Transaction("222", -214, "Pornhub account",
-        "Max Leszczynski", MonobankIcons.credit_card)),
-    _transactionCard(Transaction("222", -214, "Pornhub account",
-        "Max Leszczynski", MonobankIcons.credit_card)),
-    _transactionCard(Transaction("222", -214, "Pornhub account",
-        "Max Leszczynski", MonobankIcons.credit_card)),
-    _dateTime("21 Thermidor 2023"),
-    _transactionCard(Transaction("222", -214, "Pornhub account",
-        "Max Leszczynski", MonobankIcons.credit_card)),
-    _transactionCard(Transaction("222", -214, "Pornhub account",
-        "Max Leszczynski", MonobankIcons.credit_card)),
-    _transactionCard(Transaction("222", -214, "Pornhub account",
-        "Max Leszczynski", MonobankIcons.credit_card)),
-    _transactionCard(
-        Transaction("222", -214, "2222", "2222", MonobankIcons.credit_card)),
+    _dateTimeMain("Kurwa, gdzie pieniadze"),
   ];
 
   return Container(
@@ -56,7 +27,7 @@ Widget HomePage(context) {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          _moneyBar(3253231, "EUR"),
+          _moneyBar(),
           _transactionsView(_transactions, context)
         ],
       ),
@@ -64,35 +35,47 @@ Widget HomePage(context) {
   );
 }
 
-Widget _moneyBar(double money, String currency) {
-  return Expanded(
-    flex: 1,
-    child: Align(
-      alignment: Alignment.center,
-      child: Text(
-        "${oCcy.format(money)} ${currency}",
-        style: TextStyle(color: Colors.white, fontSize: 20),
-      ),
-    ),
-  );
+Widget _moneyBar() {
+  return StoreConnector<CashState, dynamic>(
+      converter: (store) => store.state,
+      builder: (context, cashInfo) {
+        return Expanded(
+          flex: 1,
+          child: Align(
+            alignment: Alignment.center,
+            child: Text(
+              "${oCcy.format(cashInfo.cash)} ${cashInfo.currency}",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          ),
+        );
+      });
 }
 
 Widget _transactionsView(elements, context) {
-  return Expanded(
-    flex: 5,
-    child: Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-        color: Colors.white,
-      ),
-      height: MediaQuery.of(context).size.height,
-      child: ListView(
-        scrollDirection: Axis.vertical,
-        children: elements,
-      ),
-    ),
-  );
+  return StoreConnector<CashState, dynamic>(
+      converter: (store) => store.state,
+      builder: (context, cashInfo) {
+        List<Widget> newTransactions = [];
+        for (Transaction transaction in cashInfo.transactions){
+          newTransactions.add(_transactionCard(transaction));
+        }
+        return Expanded(
+          flex: 5,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+              color: Colors.white,
+            ),
+            height: MediaQuery.of(context).size.height,
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              children: elements + newTransactions,
+            ),
+          ),
+        );
+      });
 }
 
 Widget _transactionCard(Transaction transaction) {
@@ -186,12 +169,4 @@ Widget _dateTimeMain(String date) {
   );
 }
 
-class Transaction {
-  String time;
-  int money;
-  String text;
-  String receiver;
-  IconData icon;
 
-  Transaction(this.time, this.money, this.text, this.receiver, this.icon);
-}
