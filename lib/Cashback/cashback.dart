@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import '../Elements/screens_background.dart';
+import '../states.dart';
 
 void main() {
   runApp(const CashbackPage());
@@ -13,7 +15,15 @@ class CashbackPage extends StatefulWidget {
 }
 
 class _CashbackPageState extends State<CashbackPage> {
-  Widget _bankCashbackItem(e) {
+  Widget _bankCashbackItem(e, state) {
+    var currentCashback;
+    if (e['type'] == 'product') {
+      currentCashback = state.cashbackProducts;
+    } else if (e['type'] == 'taxi') {
+      currentCashback = state.cashbackTaxi;
+    } else {
+      currentCashback = state.cashbackElse;
+    }
     return Container(
       padding: const EdgeInsets.only(left: 5, top: 10, right: 5, bottom: 5),
       child: Row(
@@ -53,7 +63,7 @@ class _CashbackPageState extends State<CashbackPage> {
           ),
           Container(
             child: Text(
-              e["amount"],
+              currentCashback.toString() + '₴',
               style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w400,
@@ -67,47 +77,57 @@ class _CashbackPageState extends State<CashbackPage> {
   }
 
   Widget _bankCashback() {
-    final bankContainerItems = [
+    var bankContainerItems = [
       {
         "image": 'lib/assets/images/cashback_apple.png',
         "main_text": "Продукти",
-        "desc_text": "1% кредитні, 2% власні",
-        "amount": "38.74₴"
+        "desc_text": "1% кредитні, 3% власні",
+        "type": "product"
       },
       {
         "image": 'lib/assets/images/cashback_taxi.png',
         "main_text": "Таксі",
-        "desc_text": "10% кредитні, 20% власні",
-        "amount": "64.47₴"
+        "desc_text": "1% кредитні, 2% власні",
+        "type": "taxi"
+      },
+      {
+        "image": 'lib/assets/images/cashback_taxi.png',
+        "main_text": "Інше",
+        "desc_text": "1% кредитні, 2% власні",
+        "type": "else"
       },
     ];
-    return Container(
-      height: MediaQuery.of(context).size.height / 4 + 11,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-              alignment: Alignment.centerLeft,
-              margin: const EdgeInsets.only(left: 13, bottom: 13),
-              child: const Text(
-                "Кешбек від банку",
-                style: TextStyle(
-                  fontSize: 19,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black,
-                ),
-              )),
-          Container(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 5.3,
-              child: ListView(
-                  children: bankContainerItems
-                      .map((e) => (_bankCashbackItem(e)))
-                      .toList()))
-        ],
-      ),
-    );
+    return StoreConnector<CashState, dynamic>(
+        converter: (store) => store.state,
+        builder: (context, cashInfo) {
+          return Container(
+            height: MediaQuery.of(context).size.height / 4 + 11,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                    alignment: Alignment.centerLeft,
+                    margin: const EdgeInsets.only(left: 13, bottom: 13),
+                    child: const Text(
+                      "Кешбек від банку",
+                      style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                      ),
+                    )),
+                Container(
+                    padding: const EdgeInsets.only(left: 8, right: 8),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 5.3,
+                    child: ListView(
+                        children: bankContainerItems
+                            .map((e) => (_bankCashbackItem(e, cashInfo)))
+                            .toList()))
+              ],
+            ),
+          );
+        });
   }
 
   Widget _partnersCashback() {
@@ -231,49 +251,69 @@ class _CashbackPageState extends State<CashbackPage> {
   }
 
   Widget _upperBar() {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            // margin: const EdgeInsets.only(top: 10),
-            child: const Text(
-              'Баланс кешбеку',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w800,
-                color: Colors.white,
-              ),
+    return StoreConnector<CashState, dynamic>(
+        converter: (store) => store.state,
+        builder: (context, cashInfo) {
+          return Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  // margin: const EdgeInsets.only(top: 10),
+                  child: const Text(
+                    'Баланс кешбеку',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Container(
+                    // margin: const EdgeInsets.only(top: 20),
+                    child: Column(
+                  children: [
+                    Text(
+                      'Накопичено ' +
+                          (cashInfo.cashbackProducts +
+                                  cashInfo.cashbackTaxi +
+                                  cashInfo.cashbackElse)
+                              .toString() +
+                          '₴',
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
+                    ),
+                    getRemainingCashback(cashInfo)
+                  ],
+                ))
+              ],
             ),
-          ),
-          Container(
-              // margin: const EdgeInsets.only(top: 20),
-              child: Column(
-            children: const [
-              Text(
-                'Накопичено 13.37 ₴',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                'Залишилося 67.12 ₴, щоб вивести гроші на свій рахунок',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ))
-        ],
-      ),
-    );
+          );
+        });
   }
-
+  Widget getRemainingCashback(cashInfo){
+    return 0 < (100 -
+        (cashInfo.cashbackProducts +
+            cashInfo.cashbackTaxi +
+            cashInfo.cashbackElse)) ? Text(
+      'Залишилося ' +
+          (100 -
+              (cashInfo.cashbackProducts +
+                  cashInfo.cashbackTaxi +
+                  cashInfo.cashbackElse))
+              .toString() +
+          '₴, щоб вивести гроші на свій рахунок',
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: Colors.white,
+      ),
+    ) : Container();
+  }
   @override
   Widget build(BuildContext context) {
     final cashbackList = [
